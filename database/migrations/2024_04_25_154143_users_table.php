@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('correo')->unique();
             $table->string('contraseña');
             $table->string('telefono', 8)->nullable();
-            $table->string('direccion')->nullable();
             $table->boolean('admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
