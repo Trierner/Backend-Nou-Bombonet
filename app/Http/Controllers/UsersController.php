@@ -8,9 +8,12 @@ use App\Models\Users;
 class UsersController extends Controller
 {
     // Método para mostrar todos los clientes
-    public function index()
+    public function index(Request $request)
     {
-        $users = Users::all();
+        $page = $request->input('page', 1);
+        $limit = $request->input('limit', 10);
+
+        $users = Users::paginate($limit, ['*'], 'page', $page);
         return response()->json($users);
     }
 
