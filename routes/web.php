@@ -8,12 +8,8 @@ use App\Http\Controllers\DetallesPedidosController;
 use App\Http\Controllers\ReservasController;
 use App\Http\Controllers\AuthController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::post('login', [AuthController::class, 'login']);
-Route::post('register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
 Route::middleware('auth:api')->post('logout', [AuthController::class, 'logout']);
 
 Route::prefix('users')->group(function () {
