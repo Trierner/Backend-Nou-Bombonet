@@ -30,14 +30,18 @@ class AuthController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string|max:255',
+            'apellido' =>'required|string|max:255',
             'correo' => 'required|string|correo|max:255|unique:users',
             'contraseña' => 'required|string|min:8|confirmed',
+            'telefono' => 'string|nullable|max:8',
         ]);
 
         $user = Users::create([
             'nombre' => $request->nombre,
+            'apellido'=> $request->apellido,
             'correo' => $request->correo,
             'contraseña' => Hash::make($request->contraseña),
+            'telefono'=> $request->telefono,
         ]);
 
         $token = $user->createToken('AuthToken')->plainTextToken;
