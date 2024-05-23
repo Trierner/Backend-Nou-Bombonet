@@ -9,12 +9,13 @@ return new class extends Migration
     
     public function up(): void
     {
-        Schema::create('reservas', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user');
-            $table->dateTime('fecha_hora_reserva');
-            $table->integer('numero_comensales');
-            $table->string('estado_reserva');
+            $table->timestamp('date')->useCurrent();
+            $table->string('state');
+            $table->decimal('total', 10, 2);
+            $table->boolean('carry');
             $table->timestamps();
         
             $table->foreign('id_user')->references('id')->on('users');
@@ -25,6 +26,6 @@ return new class extends Migration
     
     public function down(): void
     {
-        Schema::dropIfExists('reservas');
+        Schema::dropIfExists('orders');
     }
 };

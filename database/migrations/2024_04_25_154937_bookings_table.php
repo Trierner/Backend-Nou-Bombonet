@@ -9,13 +9,12 @@ return new class extends Migration
     
     public function up(): void
     {
-        Schema::create('pedidos', function (Blueprint $table) {
+        Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user');
-            $table->timestamp('fecha_hora_pedido')->useCurrent();
-            $table->string('estado_pedido');
-            $table->decimal('total', 10, 2);
-            $table->boolean('para_llevar');
+            $table->dateTime('booking_date');
+            $table->integer('num_diners');
+            $table->string('booking_state');
             $table->timestamps();
         
             $table->foreign('id_user')->references('id')->on('users');
@@ -26,6 +25,6 @@ return new class extends Migration
     
     public function down(): void
     {
-        Schema::dropIfExists('pedidos');
+        Schema::dropIfExists('bookings');
     }
 };

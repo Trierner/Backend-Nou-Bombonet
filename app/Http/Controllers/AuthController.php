@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,15 +13,18 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('correo', 'contraseña');
+        $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $token = $user->createToken('AuthToken')->plainTextToken;
-            return response()->json(['token' => $token]);
+            return response()->json([
+                'token' => $token,
+                'usertype' => $user->usertype
+            ]);
         } else {
             throw ValidationException::withMessages([
-                'correo' => ['The provided credentials are incorrect.'],
+                'email' => ['The provided credentials are incorrect.'],
             ]);
         }
     }
@@ -29,24 +32,27 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|max:255',
-            'apellido' =>'required|string|max:255',
-            'correo' => 'required|string|correo|max:255|unique:users',
-            'contraseña' => 'required|string|min:8|confirmed',
-            'telefono' => 'string|nullable|max:8',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'usertype' => 'required|string|in:user,admin',
+            'password' => 'required|string|min:8|confirmed',
+            'phone' => 'nullable|string|max:9',
         ]);
 
-        $user = Users::create([
-            'nombre' => $request->nombre,
-            'apellido'=> $request->apellido,
-            'correo' => $request->correo,
-            'contraseña' => Hash::make($request->contraseña),
-            'telefono'=> $request->telefono,
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'usertype' => $request->usertype,
+            'password' => Hash::make($request->password),
+            'phone'=> $request->phone,
         ]);
 
         $token = $user->createToken('AuthToken')->plainTextToken;
 
-        return response()->json(['token' => $token], 201);
+        return response()->json([
+            'token' => $token,
+            'usertype' => $user->usertype
+        ], 201);
     }
 
     public function logout(Request $request)

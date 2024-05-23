@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Reservas extends Model
+class Bookings extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'id_user', 'fecha_hora_reserva', 'numero_comensales', 'estado_reserva',
+        'id_user', 'booking_date', 'num_diners', 'booking_state',
     ];
 
-    public function cliente()
+    public function user()
     {
-        return $this->belongsTo(Users::class, 'id_users');
+        return $this->belongsTo(User::class, 'id_users');
     }
 }
