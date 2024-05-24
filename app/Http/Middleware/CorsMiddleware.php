@@ -17,9 +17,10 @@ class CorsMiddleware
     {
         $response = $next($request);
 
-        $response->header('Access-Control-Allow-Origin', 'http://localhost:3000');
-        $response->header('Access-Control-Allow-Method', 'GET, POST, PUT, DELETE, OPTIONS');
-        $response->header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With, Application');
+        $response->headers->set('Access-Control-Allow-Origin', 'http://localhost:3000');
+        $response->headers->set('Access-Control-Allow-Method', 'GET, POST, PUT, DELETE, OPTIONS');
+        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With, Application');
+        $response->headers->set('Access-Control-Allow-Credentials', 'true');
 
         if ($request->getMethod() === "OPTIONS") {
             $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
