@@ -15,13 +15,12 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::middleware('auth:api')->post('logout', [AuthController::class, 'logout']);
 
-Route::prefix('user')->group(function (){
-    
+Route::prefix('user')->group(function () {
+
 });
 
-
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/admin', [AdminController::class, 'index']);
+    Route::post('/admin', [AdminController::class, 'admin']);
 });
 
 Route::prefix('admin')->group(function () {
