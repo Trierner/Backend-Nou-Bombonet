@@ -9,15 +9,19 @@ use App\Http\Controllers\OrderDetailsController;
 use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PagesController;
 
 // Ruta de autenticación para iniciar sesión
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::middleware('auth:api')->post('logout', [AuthController::class, 'logout']);
 
-Route::prefix('user')->group(function () {
-
-});
+// Rutas de páginas de la página principal
+Route::post('/menu', [PagesController::class, 'menu']);
+Route::post('/order', [PagesController::class, 'order']);
+Route::post('/booking', [PagesController::class, 'booking']);
+Route::post('/aboutus', [PagesController::class, 'aboutus']);
+Route::post('/contact', [PagesController::class, 'contact']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/admin', [AdminController::class, 'admin']);
