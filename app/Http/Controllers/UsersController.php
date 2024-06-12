@@ -25,7 +25,7 @@ class UsersController extends Controller
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|string',
-            'phone' => 'string|nullable|max:9',
+            'phone' => 'string|max:9',
         ]);
 
         $passwordHasheada = Hash::make($request->input('password'));
@@ -54,7 +54,7 @@ class UsersController extends Controller
             'name' => 'string',
             'email' => 'email|unique:users,email,' . $id,
             'password' => 'string',
-            'phone' => 'string|nullable|max:9',
+            'phone' => 'string|max:9',
         ]);
 
         $user = User::findOrFail($id);
