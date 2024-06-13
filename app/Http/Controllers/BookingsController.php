@@ -11,7 +11,7 @@ class BookingsController extends Controller
     public function index(Request $request)
     {
         $page = $request->input('page', 1);
-        $limit = $request->input('limit', 10);
+        $limit = $request->input('limit', 200);
 
         $bookings = Bookings::paginate($limit, ['*'], 'page', $page);
         return response()->json($bookings, 200);

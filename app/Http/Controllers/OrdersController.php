@@ -11,7 +11,7 @@ class OrdersController extends Controller
     public function index(Request $request)
     {
         $page = $request->input('page', 1);
-        $limit = $request->input('limit', 10);
+        $limit = $request->input('limit', 200);
 
         $orders = Orders::paginate($limit, ['*'], 'page', $page);
         return response()->json($orders, 200);
