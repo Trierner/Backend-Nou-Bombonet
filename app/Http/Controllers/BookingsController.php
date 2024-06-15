@@ -21,10 +21,10 @@ class BookingsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_cliente' => 'required|exists:bookingss,id',
-            'fecha_hora_reserva' => 'required|date',
-            'numero_comensales' => 'required|integer|min:1',
-            'estado_reserva' => 'required|string',
+            'id_user' => 'required|exists:bookings,id',
+            'booking_date' => 'required|date',
+            'num_diners' => 'required|integer|min:1',
+            'booking_state' => 'required|string',
         ]);
 
         $booking = Bookings::create($request->all());
@@ -53,10 +53,10 @@ class BookingsController extends Controller
         }
 
         $request->validate([
-            'id_cliente' => 'exists:users,id',
-            'fecha_hora_reserva' => 'date',
-            'numero_comensales' => 'integer|min:1',
-            'estado_reserva' => 'string',
+            'id_user' => 'exists:users,id',
+            'booking_date' => 'date',
+            'num_diners' => 'integer|min:1',
+            'booking_state' => 'string',
         ]);
 
         $booking->update($request->all());
