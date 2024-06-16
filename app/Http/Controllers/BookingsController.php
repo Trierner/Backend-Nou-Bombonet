@@ -21,7 +21,7 @@ class BookingsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_user' => 'required|exists:bookings,id',
+            'id_user' => 'required|exists:users,id',
             'booking_date' => 'required|date',
             'num_diners' => 'required|integer|min:1',
             'booking_state' => 'required|string',
