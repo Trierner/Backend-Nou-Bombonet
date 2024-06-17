@@ -14,7 +14,6 @@ use App\Http\Controllers\PagesController;
 // Ruta de autenticación para iniciar sesión
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::middleware('auth:api')->post('logout', [AuthController::class, 'logout']);
 
 // Rutas de páginas de la página principal
 Route::post('/menu', [PagesController::class, 'menu']);

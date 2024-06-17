@@ -54,11 +54,4 @@ class AuthController extends Controller
             'usertype' => $user->usertype
         ], 201);
     }
-
-    public function logout(Request $request)
-    {
-        Auth::guard('api')->logout();
-        $request->user()->currentAccessToken()->delete();
-        return response()->json(['message' => 'User logged out successfully']);
-    }
 }
