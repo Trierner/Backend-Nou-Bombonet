@@ -38,7 +38,19 @@ class OrderDetailsController extends Controller
         $orderDetail = OrderDetails::find($id);
 
         if (!$orderDetail) {
-            return response()->json(['message' => 'Order detail not dounf'], 404);
+            return response()->json(['message' => 'Order detail not found'], 404);
+        }
+
+        return response()->json($orderDetail, 200);
+    }
+
+    //Muestra el detalle de pedido por el id del pedido
+    public function showDetail($id_order)
+    {
+        $orderDetail = OrderDetails::find($id_order);
+
+        if (!$orderDetail) {
+            return response()->json(['message' => 'Order detail not found'], 404);
         }
 
         return response()->json($orderDetail, 200);
@@ -50,7 +62,7 @@ class OrderDetailsController extends Controller
         $orderDetail = OrderDetails::find($id);
 
         if (!$orderDetail) {
-            return response()->json(['message' => 'Order detail not dounf'], 404);
+            return response()->json(['message' => 'Order detail not found'], 404);
         }
 
         $request->validate([
@@ -71,7 +83,7 @@ class OrderDetailsController extends Controller
         $orderDetail = OrderDetails::find($id);
 
         if (!$orderDetail) {
-            return response()->json(['message' => 'Order detail not dounf'], 404);
+            return response()->json(['message' => 'Order detail not found'], 404);
         }
 
         $orderDetail->delete();
