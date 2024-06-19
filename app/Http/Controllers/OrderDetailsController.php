@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\OrderDetails;
+use Illuminate\Support\Facades\DB;
 
 class OrderDetailsController extends Controller
 {
@@ -47,7 +48,23 @@ class OrderDetailsController extends Controller
     //Muestra el detalle de pedido por el id del pedido
     public function showDetail($id_order)
     {
-        $orderDetail = OrderDetails::where('id_order', $id_order)->get();
+        $orderDetail = DB::table('order_details')
+            ->leftJoin('products', 'order_details.id_product', '=', 'products.id')
+            ->select(
+                'order_details.id',
+                'order_details.id_order',
+                'order_details.id_product',
+                'order_details.amount',
+                'order_details.unit_price',
+                'order_details.specs',
+                'products.name_product',
+                'products.description',
+                'products.price',
+                'products.category',
+                'products.image'
+            )
+            ->where('order_details.id_order', $id_order)
+            ->get();
 
         if ($orderDetail->isEmpty()) {
             return response()->json(['message' => 'Order detail not found'], 404);
