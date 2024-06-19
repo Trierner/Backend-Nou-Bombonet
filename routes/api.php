@@ -59,7 +59,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [OrderDetailsController::class, 'index']);
         Route::post('/', [OrderDetailsController::class, 'store']);
         Route::get('/{id}', [OrderDetailsController::class, 'show']);
-        Route::get('/{id_order}', [OrderDetailsController::class, 'showDetail']);
+        Route::get('/by-order/{id_order}', [OrderDetailsController::class, 'showDetail']);
         Route::put('/{id}', [OrderDetailsController::class, 'update']);
         Route::delete('/{id}', [OrderDetailsController::class, 'destroy']);
     });

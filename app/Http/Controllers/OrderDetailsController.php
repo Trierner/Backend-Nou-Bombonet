@@ -47,9 +47,9 @@ class OrderDetailsController extends Controller
     //Muestra el detalle de pedido por el id del pedido
     public function showDetail($id_order)
     {
-        $orderDetail = OrderDetails::find($id_order);
+        $orderDetail = OrderDetails::where('id_order', $id_order)->get();
 
-        if (!$orderDetail) {
+        if ($orderDetail->isEmpty()) {
             return response()->json(['message' => 'Order detail not found'], 404);
         }
 
