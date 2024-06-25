@@ -44,6 +44,18 @@ class OrdersController extends Controller
         return response()->json($order, 200);
     }
 
+    //Muestra el pedido por el id de usuario.
+    public function showByUser($id_user)
+    {
+        $order = Orders::where('id_user', $id_user)->get();
+
+        if ($order->isEmpty()) {
+            return response()->json(['message' => 'No orders found for this user'], 404);
+        }
+
+        return response()->json($order, 200);
+    }
+
     //Actualiza el pedido especificado en la base de datos.
     public function update(Request $request, $id)
     {

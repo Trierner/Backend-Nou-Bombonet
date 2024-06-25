@@ -50,6 +50,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [OrdersController::class, 'index']);
         Route::post('/', [OrdersController::class, 'store']);
         Route::get('/{id}', [OrdersController::class, 'show']);
+        Route::get('/by-user/{id_user}', [OrdersController::class, 'showByUser']);
         Route::put('/{id}', [OrdersController::class, 'update']);
         Route::delete('/{id}', [OrdersController::class, 'destroy']);
     });
